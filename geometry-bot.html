@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>المساعد التعليمي للمجسمات</title>
+
+<style>
+body{
+font-family: "Segoe UI", Tahoma;
+background:#f4f6f9;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+margin:0;
+}
+
+.chat-container{
+width:350px;
+background:white;
+border-radius:15px;
+box-shadow:0 8px 25px rgba(0,0,0,0.1);
+overflow:hidden;
+}
+
+.header{
+background:#4CAF50;
+color:white;
+padding:15px;
+text-align:center;
+font-weight:bold;
+}
+
+.chat-box{
+height:300px;
+overflow-y:auto;
+padding:15px;
+}
+
+.message{
+margin:10px 0;
+padding:10px;
+border-radius:10px;
+max-width:80%;
+}
+
+.bot{
+background:#eee;
+}
+
+.user{
+background:#4CAF50;
+color:white;
+margin-left:auto;
+}
+
+.input-area{
+display:flex;
+border-top:1px solid #ddd;
+}
+
+input{
+flex:1;
+border:none;
+padding:12px;
+font-size:16px;
+}
+
+button{
+border:none;
+background:#4CAF50;
+color:white;
+padding:12px 20px;
+cursor:pointer;
+}
+
+button:hover{
+background:#45a049;
+}
+</style>
+</head>
+
+<body>
+
+<div class="chat-container">
+
+<div class="header">
+🤖 المساعد التعليمي — المجسمات
+</div>
+
+<div class="chat-box" id="chatBox">
+<div class="message bot">
+مرحباً 👋 اسألني عن:
+<br>مكعب — هرم — اسطوانة — مخروط — متوازي مستطيلات — الفرق بين المجسم والمسطح
+</div>
+</div>
+
+<div class="input-area">
+<input id="userInput" placeholder="اكتب سؤالك هنا..." onkeypress="if(event.key==='Enter') sendMessage()">
+<button onclick="sendMessage()">إرسال</button>
+</div>
+
+</div>
+
+<script>
+
+function addMessage(text, type){
+let msg = document.createElement("div");
+msg.className = "message " + type;
+msg.innerHTML = text;
+document.getElementById("chatBox").appendChild(msg);
+document.getElementById("chatBox").scrollTop = 9999;
+}
+
+function sendMessage(){
+let input = document.getElementById("userInput");
+let text = input.value.trim();
+
+if(text==="") return;
+
+addMessage(text,"user");
+input.value="";
+
+setTimeout(()=>reply(text),500);
+}
+
+function reply(input){
+
+input = input.toLowerCase();
+let response="";
+
+if(input.includes("مكعب"))
+response="المكعب مجسم ثلاثي الأبعاد له 6 أوجه مربعة متساوية و12 حرفًا و8 رؤوس.";
+
+else if(input.includes("اسطوانة"))
+response="الاسطوانة لها قاعدتان دائريتان وسطح جانبي منحني مثل علبة العصير.";
+
+else if(input.includes("مخروط"))
+response="المخروط له قاعدة دائرية ورأس واحد مثل قبعة الحفلة.";
+
+else if(input.includes("هرم"))
+response="الهرم له قاعدة وعدة أوجه مثلثة تلتقي عند نقطة واحدة.";
+
+else if(input.includes("متوازي"))
+response="متوازي المستطيلات له 6 أوجه مستطيلة مثل الصندوق.";
+
+else if(input.includes("فرق") || input.includes("مقارنة"))
+response="المجسم ثلاثي الأبعاد له طول وعرض وارتفاع، أما الشكل المسطح ثنائي الأبعاد له طول وعرض فقط.";
+
+else
+response="لم أفهم السؤال 🤔 حاول كتابة اسم المجسم أو المقارنة.";
+
+addMessage(response,"bot");
+}
+
+</script>
+
+</body>
+</html>
